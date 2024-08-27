@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-3.xsd"
+          name="wechat" displayName="WeChat Callback API" version="1.0.0">
+
+    <!-- 定义 WeChat 回调资源 -->
+    <resource name="callback" require-authentication="false">
+        <!-- POST 请求处理微信服务器回调 -->
+        <method type="post"><service name="moqui.wechat.WeChatServices.process#WeChatCallback"/></method>
+    </resource>
+</resource>

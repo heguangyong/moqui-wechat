@@ -15,5 +15,6 @@ along with this software (see the LICENSE.md file). If not, see
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
 
     <!-- moqui-wechat & Related Services -->
+    <service verb="process" noun="WeChatCallback" type="inline" location="component://moqui-wechat/service/WeChatServices.groovy" authenticate="false"/>
 
 </services>
