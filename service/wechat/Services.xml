@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+    <!-- WeChat Callback Service -->
+    <service verb="process" location="wechat.Services" method="processWeChatCallback">
+        <in-parameters>
+            <parameter name="signature" type="String"/>
+            <parameter name="timestamp" type="String"/>
+            <parameter name="nonce" type="String"/>
+            <parameter name="echostr" type="String"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="responseText" type="String"/>
+        </out-parameters>
+    </service>
+
+</services>

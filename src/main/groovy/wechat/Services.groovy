@@ -1,9 +1,9 @@
-package org.moqui.wechat
+package wechat
 
 import org.moqui.context.ExecutionContext
 import java.security.MessageDigest
 
-class WeChatServices {
+class Services {
     static void processWeChatCallback(ExecutionContext ec) {
         // 获取微信回调的请求参数
         def requestParams = ec.web.getRequestParameters()
