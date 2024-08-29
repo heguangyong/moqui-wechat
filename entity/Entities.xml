@@ -17,13 +17,13 @@ along with this software (see the LICENSE.md file). If not, see
     <!-- moqui-wechat & Related Entities -->
     <entity entity-name="WeChatUser" package="org.moqui.wechat" enable-audit-log="true">
         <field name="weChatUserId" type="id"/>
-        <field name="personId" type="id"/>
+        <field name="partyId" type="id"/>
         <field name="openId" type="id"/>
         <field name="nickname" type="text-medium"/>
         <field name="subscribeTime" type="date-time"/>
         <field name="status" type="text-medium"/>
 
-        <relationship type="one" related="Person" fk-name="personId"/>
+        <relationship type="one" related="Person" fk-name="partyId"/>
     </entity>
 
 </entities>
