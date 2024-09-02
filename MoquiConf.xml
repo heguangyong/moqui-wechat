@@ -3,7 +3,7 @@
 <moqui-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/moqui-conf-3.xsd">
     <webapp-list>
         <webapp name="webroot">
-            <servlet name="HtmlRenderServlet" class="org.moqui.wechat.ProcessWeChatServlet" load-on-startup="1">
+            <servlet name="ProcessWeChatServlet" class="org.moqui.wechat.ProcessWeChatServlet" load-on-startup="1">
                 <url-pattern>/wechat/callback</url-pattern></servlet>
         </webapp>
     </webapp-list>
