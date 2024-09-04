@@ -1,11 +1,16 @@
 package org.moqui.wechat
 
 import groovy.json.JsonSlurper
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class WeChatAccessTokenManager {
+    protected final static Logger logger = LoggerFactory.getLogger(WeChatAccessTokenManager.class)
+
     private static final String APP_ID = "wxc42ba3b82548c8b6"
     private static final String APP_SECRET = "4f48a639f2ead638940cda0458931ac4"
     private static final String TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}"
@@ -35,12 +40,12 @@ class WeChatAccessTokenManager {
                 expiresIn = jsonResponse.expires_in * 1000 // Convert to milliseconds
                 lastFetchedTime = System.currentTimeMillis()
 
-                println "Successfully fetched new access token: ${accessToken}"
+                logger.info( "Successfully fetched new access token: ${accessToken}")
             } else {
-                println "Failed to fetch access token: ${jsonResponse}"
+                logger.info( "Failed to fetch access token: ${jsonResponse}")
             }
         } catch (Exception e) {
-            println "Error while fetching access token: ${e.message}"
+            logger.info( "Error while fetching access token: ${e.message}")
             e.printStackTrace()
         }
     }

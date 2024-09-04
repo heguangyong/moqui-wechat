@@ -38,23 +38,18 @@ class ProcessWeChatServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String signature = req.getParameter("signature")
-        String timestamp = req.getParameter("timestamp")
-        String nonce = req.getParameter("nonce")
         String message = req.reader.text
 
-        if (verifySignature(signature, timestamp, nonce)) {
-            if (message) {
-                handleIncomingMessage(message, resp)
-            } else {
-                resp.writer.write("success")
-            }
+        if (message) {
+            handleIncomingMessage(message, resp)
         } else {
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN)
+            resp.writer.write("success")
         }
+
     }
 
     private boolean verifySignature(String signature, String timestamp, String nonce) {
+        logger.info("Timestamp: ${timestamp}, Nonce: ${nonce}, Signature: ${signature}")
         String[] params = [TOKEN, timestamp, nonce]
         Arrays.sort(params)
         String toHash = params.join("")
@@ -64,9 +59,11 @@ class ProcessWeChatServlet extends HttpServlet {
 
     private void handleIncomingMessage(String message, HttpServletResponse resp) throws IOException {
         def recMsg = parseXml(message)
-        if (recMsg?.MsgType == 'text') {
-            String toUser = recMsg.FromUserName
-            String fromUser = recMsg.ToUserName
+        logger.info("Received message of type: ${recMsg?.getClass()?.name}")
+        if (recMsg instanceof TextMsg) {
+            TextMsg textMsg = recMsg
+            String toUser = textMsg.FromUserName
+            String fromUser = textMsg.ToUserName
             String content = "test" // Custom response
             def replyMsg = new TextMsg(toUser, fromUser, content)
             resp.writer.write(replyMsg.send())
@@ -75,7 +72,7 @@ class ProcessWeChatServlet extends HttpServlet {
         }
     }
 
-    private Map parseXml(String xmlData) {
+    private TextMsg parseXml(String xmlData) {
         if (xmlData?.trim()) {
             def xml = new XmlParser().parseText(xmlData)
             def msgType = xml.MsgType.text()
